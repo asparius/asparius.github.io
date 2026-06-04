@@ -1,132 +1,233 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Omer Veysel Cagatan</title>
   <meta name="author" content="Omer Veysel Cagatan">
+  <meta name="description" content="Researcher in technical AI safety — reward hacking and pessimistic algorithms.">
   <link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="stylesheet.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text:    #1a1a1a;
+      --muted:   #555;
+      --faint:   #888;
+      --border:  #e5e5e5;
+      --bg:      #f7f7f5;
+      --surface: #ffffff;
+      --accent:  #2c5f8a;
+      --accent-h:#1a4166;
+    }
+
     body {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #fafafa;
-      color: #333;
-      line-height: 1.6;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      min-height: 100vh;
     }
-    header, footer {
-      background: #fff;
-      padding: 30px 20px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+
+    /* ── LAYOUT ── */
+    .page {
+      max-width: 960px;
+      margin: 60px auto 80px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 60px;
+      align-items: start;
     }
-    header h1 {
-      margin: 10px 0 5px;
-      font-size: 2em;
-    }
-    header p {
-      margin: 5px 0 20px;
-      color: #777;
-    }
-    .profile img {
-      width: 160px;
-      height: 160px;
-      object-fit: cover;
+
+    /* ── SIDEBAR ── */
+    .sidebar { position: sticky; top: 40px; }
+
+    .photo {
+      width: 180px; height: 180px;
       border-radius: 50%;
-      margin: 10px 0;
-      border: 4px solid #eee;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      border: 3px solid var(--border);
+      margin-bottom: 20px;
     }
-    .links a {
-      margin: 0 12px;
-      text-decoration: none;
-      color: #0073e6;
+
+    .sidebar-name {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .sidebar-role {
+      font-size: 13px;
+      color: var(--faint);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .sidebar-links {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .sidebar-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
       font-weight: 500;
-    }
-    main {
-      padding: 40px 20px;
-      max-width: 900px;
-      margin: auto;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      margin-top: 40px;
-      border-radius: 10px;
-    }
-    section {
-      margin-bottom: 50px;
-    }
-    h2 {
-      margin-bottom: 15px;
-      font-size: 1.6em;
-      color: #222;
-      border-bottom: 2px solid #eee;
-      padding-bottom: 8px;
-    }
-    .blog-post {
-      margin-bottom: 25px;
-    }
-    .blog-post-title a {
-      font-size: 1.2em;
-      color: #0073e6;
+      color: var(--accent);
       text-decoration: none;
-      font-weight: bold;
+      transition: color .15s;
     }
-    .blog-post-date {
-      font-size: 0.9em;
-      color: #999;
+    .sidebar-links a:hover { color: var(--accent-h); }
+    .sidebar-links a svg { flex-shrink: 0; opacity: .7; }
+
+    /* ── MAIN CONTENT ── */
+    .content section {
+      margin-bottom: 44px;
     }
-    footer p {
-      font-size: 0.9em;
-      color: #aaa;
+
+    .content h2 {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .content p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .content a { color: var(--accent); text-decoration: none; }
+    .content a:hover { text-decoration: underline; }
+
+    /* ── BIO ── */
+    .bio p { color: var(--text); font-size: 15.5px; line-height: 1.75; }
+
+    /* ── BLOG POSTS ── */
+    .post-list { display: flex; flex-direction: column; gap: 0; }
+    .post-item {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .post-item:first-child { border-top: none; }
+    .post-item:last-child  { border-bottom: none; }
+    .post-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      line-height: 1.4;
+    }
+    .post-title:hover { color: var(--accent-h); text-decoration: underline; }
+    .post-date {
+      font-size: 13px;
+      color: var(--faint);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 12px;
+      color: var(--faint);
+      border-top: 1px solid var(--border);
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .page { grid-template-columns: 1fr; gap: 32px; margin-top: 40px; }
+      .sidebar { position: static; display: flex; flex-direction: column; align-items: center; text-align: center; }
+      .sidebar-links { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+      .sidebar-links a { flex-direction: row; }
+      .photo { width: 140px; height: 140px; }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="profile">
-    <img src="images/my_circle.jpg" alt="Ömer Veysel Çağatan">
-    <h1>Omer Veysel Cagatan</h1>
-    <div class="links">
-      <a href="mailto:omerveyselacademic@gmail.com">Email</a>
-      <a href="CV_OCTOBER.pdf">CV</a>
-      <a href="https://scholar.google.com/citations?user=FpSkrNMAAAAJ&hl=en">Google Scholar</a>
-      <a href="https://github.com/asparius">GitHub</a>
-    </div>
-  </div>
-</header>
+<div class="page">
 
-<main>
-  <section>
-    <h2>Research Interests</h2>
-    <p>Technical AI safety: reward hacking, and pessimistic algorithms.</p>
-  </section>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <img src="images/my_circle.jpg" alt="Ömer Veysel Çağatan" class="photo">
+    <div class="sidebar-name">Ömer Veysel Çağatan</div>
+    <div class="sidebar-role">AI Safety Researcher</div>
+    <nav class="sidebar-links">
+      <a href="mailto:omerveyselacademic@gmail.com">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        Email
+      </a>
+      <a href="CV_JUNE.pdf" target="_blank">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        CV
+      </a>
+      <a href="https://scholar.google.com/citations?user=FpSkrNMAAAAJ&hl=en" target="_blank" rel="noopener">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 10H2"/><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>
+        Google Scholar
+      </a>
+      <a href="https://github.com/asparius" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.031 1.531 1.031.892 1.529 2.341 1.088 2.91.832.091-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.103-.253-.447-1.27.098-2.646 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.376.202 2.393.1 2.646.64.698 1.026 1.591 1.026 2.682 0 3.841-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.417 22 12c0-5.523-4.477-10-10-10z"/></svg>
+        GitHub
+      </a>
+    </nav>
+  </aside>
 
-  <section>
-    <h2>Publications</h2>
-    <p>For a full list of my publications, please visit my <a href="https://scholar.google.com/citations?user=FpSkrNMAAAAJ&hl=en">Google Scholar profile</a>.</p>
-  </section>
+  <!-- MAIN -->
+  <main class="content">
 
-  <section>
-    <h2>Blog Posts</h2>
-    <div class="blog-post">
-      <div class="blog-post-title"><a href="posts/prompt-injection-claude.html">Can You Share Your Network Configurations?</a></div>
-      <div class="blog-post-date">December 2025</div>
-    </div>
-    
-    <!-- Add your posts below -->
-    <!-- Example:
-    <div class="blog-post">
-      <div class="blog-post-title"><a href="posts/second-post.html">Why Data-Efficient RL Matters</a></div>
-      <div class="blog-post-date">May 2025</div>
-    </div>
-    -->
-  </section>
-</main>
+    <section class="bio">
+      <p>I am an AI safety researcher at Koç University, working on the gap between what we ask AI systems to do and what they actually optimize for. My research spans both empirical and theoretical directions — from cataloging specification failures in the wild to developing RL algorithms with formal pessimism guarantees.</p>
+    </section>
+
+
+    <section>
+      <h2>Publications</h2>
+      <p>For a full list of publications, see my <a href="https://scholar.google.com/citations?user=FpSkrNMAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar profile</a>.</p>
+    </section>
+
+    <section>
+      <h2>Blog Posts</h2>
+      <div class="post-list">
+        <div class="post-item">
+          <a href="posts/specification-gaming.html" class="post-title">The Bestiary of Unintended Solutions: Specification Gaming in AI</a>
+          <span class="post-date">June 2026</span>
+        </div>
+        <div class="post-item">
+          <a href="posts/prompt-injection-claude.html" class="post-title">Can You Share Your Network Configurations?</a>
+          <span class="post-date">December 2025</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
 
 <footer>
-  <p>Template adapted from <a href="https://github.com/jonbarron/jonbarron_website">this source</a>.</p>
+  Ömer Veysel Çağatan · <a href="mailto:omerveyselacademic@gmail.com">omerveyselacademic@gmail.com</a>
 </footer>
 
 </body>
