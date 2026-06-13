@@ -116,7 +116,7 @@ body { background:var(--bg); color:var(--text); min-height:100vh; font-family:'D
 .featured-author { font-size:11px; color:var(--faint); border-top:1px solid var(--border); padding-top:10px; margin-top:auto; }
 
 /* ── CONTROLS ── */
-.controls { position:sticky; top:0; z-index:50; background:color-mix(in srgb,var(--bg) 92%,transparent); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); padding:14px 32px; }
+.controls { position:sticky; top:49px; z-index:50; background:color-mix(in srgb,var(--bg) 92%,transparent); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); padding:14px 32px; }
 .controls-inner { max-width:1320px; margin:0 auto; display:flex; flex-direction:column; gap:10px; }
 .controls-top { display:flex; gap:10px; }
 .search-wrap { position:relative; flex:1; }
@@ -127,8 +127,7 @@ body { background:var(--bg); color:var(--text); min-height:100vh; font-family:'D
 #search:disabled { opacity:.5; cursor:not-allowed; }
 #sort { background:var(--surface); border:1px solid var(--border); color:var(--text); border-radius:10px; padding:10px 36px 10px 14px; font-size:14px; font-family:'DM Sans',inherit; outline:none; cursor:pointer; appearance:none; min-width:150px; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a4a35' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; }
 #sort:disabled { opacity:.5; cursor:not-allowed; }
-.pills { display:flex; gap:6px; overflow-x:auto; padding-bottom:1px; scrollbar-width:none; }
-.pills::-webkit-scrollbar { display:none; }
+.pills { display:flex; flex-wrap:wrap; gap:6px; padding-bottom:4px; }
 .pill { flex-shrink:0; background:transparent; border:1px solid var(--border); color:var(--muted); border-radius:100px; padding:5px 15px; font-size:12px; font-weight:600; font-family:inherit; cursor:pointer; white-space:nowrap; transition:all .15s; }
 .pill:hover { border-color:var(--faint); color:var(--text); }
 .pill.on { background:var(--amber); border-color:var(--amber); color:#100d09; }
@@ -236,6 +235,16 @@ body { background:var(--bg); color:var(--text); min-height:100vh; font-family:'D
 footer { border-top:1px solid var(--border); padding:36px 32px; text-align:center; font-size:13px; color:var(--faint); line-height:1.7; }
 footer a { color:var(--muted); text-decoration:underline; text-underline-offset:3px; }
 
+/* ── TABS ── */
+.tab-nav { display:flex; gap:0; border-bottom:1px solid var(--border); padding:0 32px; background:var(--bg); position:sticky; top:0; z-index:60; transition:background .25s; }
+.tab-btn { background:transparent; border:none; border-bottom:2px solid transparent; margin-bottom:-1px; padding:14px 20px; font-size:14px; font-weight:600; font-family:inherit; color:var(--muted); cursor:pointer; transition:color .15s,border-color .15s; }
+.tab-btn:hover { color:var(--text); }
+.tab-btn.active { color:var(--amber); border-bottom-color:var(--amber); }
+
+/* ── ATTRIBUTION BAR ── */
+.attr-bar { max-width:1320px; margin:0 auto; padding:10px 32px; font-size:12px; color:var(--faint); }
+.attr-bar a { color:var(--muted); text-decoration:underline; text-underline-offset:3px; }
+
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar { width:5px; height:5px; }
 ::-webkit-scrollbar-track { background:transparent; }
@@ -255,6 +264,13 @@ footer a { color:var(--muted); text-decoration:underline; text-underline-offset:
     </button>
   </div>
 </nav>
+
+<nav class="tab-nav" role="tablist">
+  <button class="tab-btn active" data-tab="browse" role="tab" aria-selected="true" aria-controls="panel-browse">Browse Examples</button>
+  <button class="tab-btn" data-tab="essay" role="tab" aria-selected="false" aria-controls="panel-essay">The Essay</button>
+</nav>
+
+<div id="panel-essay" class="tab-panel" hidden role="tabpanel">
 
 <header class="essay-header">
   <div class="essay-kicker">Specification Gaming</div>
@@ -327,11 +343,15 @@ footer a { color:var(--muted); text-decoration:underline; text-underline-offset:
     <cite>The challenge of the coming years is writing specifications that mean what we intend, for systems capable enough to find every way they don't.</cite>
   </div>
 
-  <p>The <span class="stat-inline" id="s-inline">—</span> examples in the catalog below span four decades and every major paradigm in machine learning. They are collected not as curiosities but as evidence — a record of the gap between what we ask for and what we get, growing more consequential with each new generation of systems.</p>
+  <p>The <span class="stat-inline" id="s-inline">—</span> examples documented here span four decades and every major paradigm in machine learning. They are collected not as curiosities but as evidence — a record of the gap between what we ask for and what we get, growing more consequential with each new generation of systems.</p>
 </main>
 
-<div class="catalog-section">
-  <div class="section-rule"><span>Browse all <span id="s-catalog-count">—</span> examples</span></div>
+</div><!-- /panel-essay -->
+
+<div id="panel-browse" class="tab-panel" role="tabpanel">
+
+<div class="attr-bar">
+  Dataset: <a href="http://tinyurl.com/ybkts7jv" target="_blank" rel="noopener">Specification Gaming Examples in AI</a>, maintained by DeepMind Safety researchers. Data is fetched live.
 </div>
 
 <div class="featured-section" id="featured-section" style="display:none">
@@ -372,6 +392,8 @@ footer a { color:var(--muted); text-decoration:underline; text-underline-offset:
   <div class="skel"><div class="sk" style="height:14px;width:48%"></div><div class="sk" style="height:24px;width:72%"></div><div class="sk" style="height:56px"></div><div class="sk" style="height:12px;width:44%"></div></div>
   <div class="skel"><div class="sk" style="height:14px;width:42%"></div><div class="sk" style="height:24px;width:78%"></div><div class="sk" style="height:56px"></div><div class="sk" style="height:12px;width:33%"></div></div>
 </div>
+
+</div><!-- /panel-browse -->
 
 <div class="overlay" id="overlay">
   <div class="modal" id="modal">
@@ -502,11 +524,11 @@ function boot() {
   const years=DATA.map(d=>d.year).filter(Boolean);
   const yMin=years.length?Math.min(...years):null, yMax=years.length?Math.max(...years):null;
 
-  document.getElementById('s-total').textContent=DATA.length+' ';
-  document.getElementById('s-cats').textContent=cats.length+' ';
-  document.getElementById('s-range').textContent=yMin?` ${yMin} – ${yMax} `:' — ';
+  const stEl=document.getElementById('s-total'); if(stEl) stEl.textContent=DATA.length+' ';
+  const scEl=document.getElementById('s-cats'); if(scEl) scEl.textContent=cats.length+' ';
+  const srEl=document.getElementById('s-range'); if(srEl) srEl.textContent=yMin?` ${yMin} – ${yMax} `:' — ';
   document.querySelectorAll('#s-inline').forEach(el=>el.textContent=DATA.length);
-  document.getElementById('s-catalog-count').textContent=DATA.length;
+  const ccEl=document.getElementById('s-catalog-count'); if(ccEl) ccEl.textContent=DATA.length;
 
   document.getElementById('search').disabled=false;
   document.getElementById('sort').disabled=false;
@@ -791,6 +813,19 @@ window.addEventListener('scroll',()=>{
   }
   apply(saved);
   btn.addEventListener('click', () => apply(html.dataset.theme === 'dark' ? 'light' : 'dark'));
+})();
+
+// ── TAB SWITCHING ────────────────────────────────────────────────
+(function() {
+  const btns = document.querySelectorAll('.tab-btn');
+  const panels = { browse: document.getElementById('panel-browse'), essay: document.getElementById('panel-essay') };
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      btns.forEach(b => { b.classList.toggle('active', b === btn); b.setAttribute('aria-selected', b === btn); });
+      Object.entries(panels).forEach(([id, el]) => { el.hidden = id !== tab; });
+    });
+  });
 })();
 
 load();
